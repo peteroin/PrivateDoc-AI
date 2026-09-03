@@ -73,6 +73,12 @@
 
         </aside>
 
+        <!-- Mobile overlay -->
+        <div
+            class="sidebar-overlay"
+            id="sidebarOverlay"
+            onclick="toggleSidebar()"
+        ></div>
 
         <!-- Main Chat -->
         <main class="chat-container">
@@ -80,7 +86,15 @@
             <!-- Header -->
             <header class="chat-header">
 
-                <div>
+                <button
+                    class="mobile-menu-button"
+                    onclick="toggleSidebar()"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+                <div class="header-title">
                     <h2>Private Data Chatbot</h2>
                     <span>Ask questions about your private data</span>
                 </div>

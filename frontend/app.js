@@ -513,6 +513,8 @@ async function deleteDocument(source) {
 
         await loadDocuments();
 
+        closeMobileSidebar();
+
 
     } catch (error) {
 
@@ -612,6 +614,8 @@ async function uploadDocument() {
 
         await loadDocuments();
 
+        closeMobileSidebar();
+
 
     } catch (error) {
 
@@ -635,6 +639,54 @@ async function uploadDocument() {
 
     fileInput.value = "";
 }
+
+
+/* =========================
+   MOBILE SIDEBAR
+========================= */
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.querySelector(".sidebar");
+
+    const overlay =
+        document.getElementById(
+            "sidebarOverlay"
+        );
+
+    sidebar.classList.toggle("mobile-open");
+
+    overlay.classList.toggle("active");
+}
+
+
+/* Close sidebar after selecting
+   a document action on mobile */
+
+function closeMobileSidebar() {
+
+    if (window.innerWidth <= 700) {
+
+        const sidebar =
+            document.querySelector(".sidebar");
+
+        const overlay =
+            document.getElementById(
+                "sidebarOverlay"
+            );
+
+        sidebar.classList.remove(
+            "mobile-open"
+        );
+
+        overlay.classList.remove(
+            "active"
+        );
+    }
+}
+
+
 
 
 /* =========================
