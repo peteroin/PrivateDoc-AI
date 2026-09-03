@@ -1,0 +1,9 @@
+ABC Hospital - Departments
+
+Cardiology is located on the 2nd floor.
+
+Neurology is located on the 3rd floor.
+
+Orthopedics is located on the 1st floor.
+
+Emergency Department operates 24 hours a day.

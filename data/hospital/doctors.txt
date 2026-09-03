@@ -1,0 +1,13 @@
+ABC Hospital - Doctors
+
+Cardiology:
+Dr. Rahul Sharma - Head of Cardiology
+Dr. Priya Sen - Senior Cardiologist
+
+Neurology:
+Dr. Ananya Roy - Head of Neurology
+Dr. Amit Das - Neurologist
+
+Orthopedics:
+Dr. Raj Malhotra - Head of Orthopedics
+Dr. Neha Singh - Orthopedic Surgeon

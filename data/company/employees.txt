@@ -1,0 +1,13 @@
+XYZ Company - Employees
+
+Rahul Sharma:
+Department: Engineering
+Position: Software Engineer
+
+Ananya Roy:
+Department: Human Resources
+Position: HR Manager
+
+Amit Das:
+Department: Engineering
+Position: Senior Software Engineer
