@@ -3,17 +3,16 @@ import glob
 import hashlib
 
 import chromadb
-
-from sentence_transformers import SentenceTransformer
+from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
 
 
 DATA_DIR = "data"
 VECTOR_DIR = "vectorstore"
 
 
-embedding_model = SentenceTransformer(
-    "all-MiniLM-L6-v2"
-)
+# ChromaDB's lightweight built-in embedding function.
+# This avoids loading SentenceTransformers/PyTorch.
+embedding_function = DefaultEmbeddingFunction()
 
 
 client = chromadb.PersistentClient(
@@ -22,7 +21,8 @@ client = chromadb.PersistentClient(
 
 
 collection = client.get_or_create_collection(
-    name="private_data"
+    name="private_data",
+    embedding_function=embedding_function
 )
 
 
@@ -66,24 +66,24 @@ def make_chunk_id(
         source
     )
 
-    return (
-        f"{document_id}_chunk_{chunk_index}"
-    )
+    return f"{document_id}_chunk_{chunk_index}"
 
 
 def add_document(
     text,
     source
 ):
+
     chunks = chunk_text(text)
 
     if not chunks:
         return 0
 
-    # Create stable document ID
+    # Stable document ID
     document_id = make_document_id(source)
 
-    # Remove any previous version
+
+    # Remove previous version
     old_results = collection.get(
         where={
             "source": source
@@ -96,20 +96,15 @@ def add_document(
     )
 
     if old_ids:
+
         collection.delete(
             ids=old_ids
         )
 
-    # Create embeddings
-    embeddings = (
-        embedding_model
-        .encode(chunks)
-        .tolist()
-    )
 
     ids = []
-
     metadatas = []
+
 
     for index in range(len(chunks)):
 
@@ -127,14 +122,22 @@ def add_document(
             "document_id": document_id,
 
             "chunk_index": index
+
         })
 
+
+    # Chroma automatically creates embeddings
+    # using its default embedding function.
     collection.add(
+
         ids=ids,
+
         documents=chunks,
-        embeddings=embeddings,
+
         metadatas=metadatas
+
     )
+
 
     return len(chunks)
 
@@ -142,12 +145,15 @@ def add_document(
 def load_documents():
 
     files = glob.glob(
+
         os.path.join(
             DATA_DIR,
             "**",
             "*.txt"
         ),
+
         recursive=True
+
     )
 
 
@@ -166,8 +172,11 @@ def load_documents():
 
 
         chunks_added = add_document(
+
             text,
+
             file_path
+
         )
 
 
@@ -187,21 +196,19 @@ def create_vector_database():
 
 
 def search_private_data(
+
     query,
+
     n_results=3,
+
     distance_threshold=1.0
+
 ):
 
-    query_embedding = (
-        embedding_model
-        .encode([query])
-        .tolist()
-    )
-
-
+    # Chroma automatically embeds the query
     results = collection.query(
 
-        query_embeddings=query_embedding,
+        query_texts=[query],
 
         n_results=n_results,
 
@@ -210,6 +217,7 @@ def search_private_data(
             "metadatas",
             "distances"
         ]
+
     )
 
 
@@ -241,9 +249,13 @@ def search_private_data(
         metadata,
         distance
     ) in zip(
+
         documents,
+
         metadatas,
+
         distances
+
     ):
 
         if distance <= distance_threshold:
@@ -264,15 +276,18 @@ def search_private_data(
 
         "metadatas":
             filtered_metadatas
+
     }
 
 
 def list_documents():
 
     results = collection.get(
+
         include=[
             "metadatas"
         ]
+
     )
 
 
@@ -307,10 +322,12 @@ def list_documents():
             "source": source,
 
             "chunks": chunks
+
         }
 
         for source, chunks
         in document_counts.items()
+
     ]
 
 
@@ -321,6 +338,7 @@ def delete_document(source):
         where={
             "source": source
         }
+
     )
 
 
