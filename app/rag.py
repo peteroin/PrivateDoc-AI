@@ -201,7 +201,7 @@ def search_private_data(
 
     n_results=3,
 
-    distance_threshold=1.0
+    distance_threshold=2.0
 
 ):
 

@@ -1,25 +1,49 @@
+/* =========================================================
+   RESET
+========================================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: #f7f7f8;
     color: #202123;
+    overflow: hidden;
 }
+
+
+/* =========================================================
+   APP
+========================================================= */
 
 .app {
     display: flex;
+    width: 100%;
     height: 100vh;
+    height: 100dvh;
 }
 
 
-/* Sidebar */
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
 .sidebar {
     width: 250px;
+    min-width: 250px;
+
+    height: 100%;
+
     background: #171717;
     color: white;
 
@@ -27,6 +51,8 @@ body {
     flex-direction: column;
 
     padding: 20px;
+
+    overflow-y: auto;
 }
 
 .logo {
@@ -35,7 +61,12 @@ body {
     margin-bottom: 25px;
 }
 
+
+/* New chat */
+
 .new-chat {
+    width: 100%;
+
     background: #2f2f2f;
     color: white;
 
@@ -53,12 +84,69 @@ body {
     background: #3a3a3a;
 }
 
+
+/* Upload */
+
+.upload-button {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 12px;
+
+    border: 1px dashed #666;
+
+    border-radius: 8px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    color: #ddd;
+
+    font-size: 14px;
+
+    transition: background 0.2s;
+}
+
+.upload-button:hover {
+    background: #2a2a2a;
+}
+
+.upload-button input {
+    display: none;
+}
+
+#uploadStatus {
+    margin-top: 8px;
+
+    font-size: 12px;
+
+    color: #aaa;
+
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   SIDEBAR DOCUMENTS
+========================================================= */
+
 .sidebar-section {
     margin-top: 30px;
+
+    min-height: 0;
+
+    flex: 1;
 }
 
 .sidebar-section p {
     color: #999;
+
     font-size: 12px;
 
     margin-bottom: 12px;
@@ -66,45 +154,153 @@ body {
     text-transform: uppercase;
 }
 
-.data-item {
-    padding: 10px;
+.documents-header {
+    display: flex;
 
-    border-radius: 7px;
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+}
+
+.documents-header p {
+    margin-bottom: 0;
+}
+
+.refresh-button {
+    border: none;
+
+    background: transparent;
+
+    color: #aaa;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    padding: 3px 5px;
+}
+
+.refresh-button:hover {
+    color: white;
+}
+
+
+.document-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    padding: 9px;
 
     margin-bottom: 5px;
 
-    color: #ddd;
+    border-radius: 7px;
+
+    background: #202020;
+
+    min-width: 0;
 }
 
-.data-item:hover {
-    background: #2a2a2a;
+
+.document-info {
+    min-width: 0;
+
+    flex: 1;
 }
+
+
+.document-name {
+    color: #ddd;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.document-chunks {
+    color: #777;
+
+    font-size: 11px;
+
+    margin-top: 3px;
+}
+
+
+.delete-document {
+    flex-shrink: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #888;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    padding: 5px;
+}
+
+.delete-document:hover {
+    color: #ff6b6b;
+}
+
+
+.empty-documents {
+    color: #777;
+
+    font-size: 12px;
+
+    padding: 8px 0;
+
+    overflow-wrap: anywhere;
+}
+
 
 .sidebar-bottom {
-    margin-top: auto;
+    margin-top: 20px;
 
     color: #777;
 
     font-size: 12px;
+
+    flex-shrink: 0;
 }
 
 
-/* Main */
+/* =========================================================
+   MAIN CHAT
+========================================================= */
 
 .chat-container {
     flex: 1;
 
+    min-width: 0;
+
     display: flex;
     flex-direction: column;
 
-    height: 100vh;
+    height: 100%;
 }
 
 
-/* Header */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .chat-header {
-    height: 70px;
+    min-height: 70px;
 
     border-bottom: 1px solid #ddd;
 
@@ -116,7 +312,11 @@ body {
 
     justify-content: space-between;
 
-    padding: 0 30px;
+    gap: 15px;
+
+    padding: 12px 30px;
+
+    flex-shrink: 0;
 }
 
 .chat-header h2 {
@@ -131,8 +331,10 @@ body {
     font-size: 13px;
 }
 
+
 .status {
     display: flex;
+
     align-items: center;
 
     gap: 7px;
@@ -140,6 +342,8 @@ body {
     font-size: 13px;
 
     color: #555;
+
+    flex-shrink: 0;
 }
 
 .status-dot {
@@ -152,26 +356,39 @@ body {
 }
 
 
-/* Chat */
+/* =========================================================
+   CHAT BOX
+========================================================= */
 
 .chat-box {
     flex: 1;
 
+    min-height: 0;
+
     overflow-y: auto;
 
-    padding: 30px 15%;
+    padding: 30px max(20px, 15%);
 
     background: #fff;
+
+    scroll-behavior: smooth;
 }
+
+
+/* Message */
 
 .message {
     display: flex;
+
+    align-items: flex-start;
 
     gap: 12px;
 
     margin-bottom: 25px;
 
     max-width: 850px;
+
+    width: 100%;
 }
 
 .message.user {
@@ -179,6 +396,9 @@ body {
 
     flex-direction: row-reverse;
 }
+
+
+/* Avatar */
 
 .avatar {
     width: 34px;
@@ -205,6 +425,17 @@ body {
     background: #555;
 }
 
+
+/* Message content */
+
+.message > div:not(.avatar) {
+    min-width: 0;
+    max-width: calc(100% - 46px);
+}
+
+
+/* Bubble */
+
 .bubble {
     background: #f1f1f1;
 
@@ -215,6 +446,10 @@ body {
     line-height: 1.5;
 
     font-size: 14px;
+
+    overflow-wrap: anywhere;
+
+    word-break: break-word;
 }
 
 .user .bubble {
@@ -230,145 +465,9 @@ body {
 }
 
 
-/* Input */
-
-.input-area {
-    background: white;
-
-    border-top: 1px solid #ddd;
-
-    padding: 15px 15% 10px;
-}
-
-.input-wrapper {
-    display: flex;
-
-    align-items: flex-end;
-
-    border: 1px solid #ccc;
-
-    border-radius: 12px;
-
-    padding: 8px 10px;
-
-    background: white;
-}
-
-textarea {
-    flex: 1;
-
-    border: none;
-
-    outline: none;
-
-    resize: none;
-
-    font-family: inherit;
-
-    font-size: 14px;
-
-    padding: 8px;
-
-    max-height: 120px;
-}
-
-#sendButton {
-    width: 38px;
-    height: 38px;
-
-    border: none;
-
-    border-radius: 8px;
-
-    background: #222;
-
-    color: white;
-
-    cursor: pointer;
-
-    font-size: 18px;
-}
-
-#sendButton:hover {
-    background: #444;
-}
-
-#sendButton:disabled {
-    background: #aaa;
-
-    cursor: not-allowed;
-}
-
-.disclaimer {
-    text-align: center;
-
-    font-size: 11px;
-
-    color: #888;
-
-    margin-top: 7px;
-}
-
-
-/* Mobile */
-
-@media (max-width: 700px) {
-
-    .sidebar {
-        display: none;
-    }
-
-    .chat-box {
-        padding: 20px;
-    }
-
-    .input-area {
-        padding: 10px;
-    }
-
-    .chat-header {
-        padding: 0 15px;
-    }
-}
-
-.upload-button {
-    display: block;
-
-    margin-top: 10px;
-
-    padding: 12px;
-
-    border: 1px dashed #666;
-
-    border-radius: 8px;
-
-    text-align: center;
-
-    cursor: pointer;
-
-    color: #ddd;
-
-    font-size: 14px;
-}
-
-.upload-button:hover {
-    background: #2a2a2a;
-}
-
-.upload-button input {
-    display: none;
-}
-
-#uploadStatus {
-    margin-top: 8px;
-
-    font-size: 12px;
-
-    color: #aaa;
-
-    line-height: 1.4;
-}
-
+/* =========================================================
+   SOURCES
+========================================================= */
 
 .sources {
     margin-top: 8px;
@@ -380,6 +479,12 @@ textarea {
     font-size: 12px;
 
     color: #666;
+
+    max-width: 100%;
+
+    overflow-wrap: anywhere;
+
+    word-break: break-word;
 }
 
 .source-title {
@@ -392,115 +497,470 @@ textarea {
 
 .source-item {
     margin-top: 3px;
+
+    overflow-wrap: anywhere;
+
+    word-break: break-word;
 }
 
 
-.documents-header {
+/* =========================================================
+   INPUT AREA
+========================================================= */
+
+.input-area {
+    background: white;
+
+    border-top: 1px solid #ddd;
+
+    padding: 15px max(20px, 15%) 10px;
+
+    flex-shrink: 0;
+}
+
+
+.input-wrapper {
     display: flex;
 
-    align-items: center;
+    align-items: flex-end;
 
-    justify-content: space-between;
+    width: 100%;
 
-    margin-bottom: 10px;
+    border: 1px solid #ccc;
+
+    border-radius: 12px;
+
+    padding: 8px 10px;
+
+    background: white;
 }
 
 
-.documents-header p {
-    margin-bottom: 0;
-}
+textarea {
+    flex: 1;
 
-
-.refresh-button {
-    border: none;
-
-    background: transparent;
-
-    color: #aaa;
-
-    font-size: 18px;
-
-    cursor: pointer;
-}
-
-
-.refresh-button:hover {
-    color: white;
-}
-
-
-.document-item {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 8px;
-
-    padding: 9px;
-
-    margin-bottom: 5px;
-
-    border-radius: 7px;
-
-    background: #202020;
-}
-
-
-.document-info {
     min-width: 0;
 
-    flex: 1;
-}
-
-
-.document-name {
-    color: #ddd;
-
-    font-size: 13px;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-}
-
-
-.document-chunks {
-    color: #777;
-
-    font-size: 11px;
-
-    margin-top: 3px;
-}
-
-
-.delete-document {
     border: none;
 
-    background: transparent;
+    outline: none;
 
-    color: #888;
+    resize: none;
 
-    cursor: pointer;
+    font-family: inherit;
 
     font-size: 14px;
 
-    padding: 4px;
+    line-height: 1.4;
+
+    padding: 8px;
+
+    max-height: 120px;
+
+    overflow-y: auto;
 }
 
 
-.delete-document:hover {
-    color: #ff6b6b;
+#sendButton {
+    width: 38px;
+    height: 38px;
+
+    min-width: 38px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #222;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    flex-shrink: 0;
+}
+
+#sendButton:hover {
+    background: #444;
+}
+
+#sendButton:disabled {
+    background: #aaa;
+
+    cursor: not-allowed;
 }
 
 
-.empty-documents {
-    color: #777;
+.disclaimer {
+    text-align: center;
 
-    font-size: 12px;
+    font-size: 11px;
 
-    padding: 8px 0;
+    color: #888;
+
+    margin-top: 7px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .sidebar {
+        width: 220px;
+        min-width: 220px;
+
+        padding: 18px;
+    }
+
+    .chat-box {
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+
+    .input-area {
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL TABLET / LARGE MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        overflow: hidden;
+    }
+
+
+    /* Hide desktop sidebar */
+
+    .sidebar {
+        display: none;
+    }
+
+
+    /* Main takes entire screen */
+
+    .chat-container {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    /* Header */
+
+    .chat-header {
+        min-height: 62px;
+
+        padding: 10px 15px;
+
+        gap: 10px;
+    }
+
+    .chat-header h2 {
+        font-size: 16px;
+
+        margin-bottom: 2px;
+    }
+
+    .chat-header span {
+        font-size: 11px;
+    }
+
+
+    .status {
+        font-size: 11px;
+    }
+
+
+    .status-dot {
+        width: 7px;
+        height: 7px;
+    }
+
+
+    /* Chat */
+
+    .chat-box {
+        padding: 20px 12px;
+    }
+
+
+    .message {
+        gap: 8px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .avatar {
+        width: 30px;
+        height: 30px;
+
+        min-width: 30px;
+
+        font-size: 10px;
+    }
+
+
+    .message > div:not(.avatar) {
+        max-width: calc(100% - 38px);
+    }
+
+
+    .bubble {
+        padding: 10px 12px;
+
+        font-size: 14px;
+
+        border-radius: 10px;
+
+        line-height: 1.45;
+    }
+
+
+    /* Input */
+
+    .input-area {
+        padding: 8px 10px 8px;
+    }
+
+
+    .input-wrapper {
+        padding: 6px 7px;
+
+        border-radius: 11px;
+    }
+
+
+    textarea {
+        font-size: 14px;
+
+        padding: 7px;
+
+        max-height: 100px;
+    }
+
+
+    #sendButton {
+        width: 36px;
+        height: 36px;
+
+        min-width: 36px;
+
+        font-size: 16px;
+    }
+
+
+    .disclaimer {
+        font-size: 10px;
+
+        margin-top: 5px;
+    }
+
+
+    /* Sources */
+
+    .sources {
+        font-size: 11px;
+
+        padding: 7px 9px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .chat-header {
+        min-height: 58px;
+
+        padding: 8px 11px;
+    }
+
+
+    .chat-header h2 {
+        font-size: 15px;
+    }
+
+
+    .chat-header span {
+        display: block;
+
+        max-width: 210px;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+
+
+    .status {
+        font-size: 10px;
+
+        gap: 5px;
+    }
+
+
+    .chat-box {
+        padding: 15px 9px;
+    }
+
+
+    .message {
+        gap: 6px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .avatar {
+        width: 28px;
+        height: 28px;
+
+        min-width: 28px;
+    }
+
+
+    .message > div:not(.avatar) {
+        max-width: calc(100% - 34px);
+    }
+
+
+    .bubble {
+        padding: 9px 11px;
+
+        font-size: 13px;
+
+        border-radius: 9px;
+    }
+
+
+    .input-area {
+        padding: 7px 7px 6px;
+    }
+
+
+    textarea {
+        font-size: 13px;
+
+        padding: 6px;
+    }
+
+
+    #sendButton {
+        width: 34px;
+        height: 34px;
+
+        min-width: 34px;
+
+        font-size: 15px;
+    }
+
+
+    .disclaimer {
+        font-size: 9px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .chat-header h2 {
+        font-size: 14px;
+    }
+
+
+    .chat-header span {
+        display: none;
+    }
+
+
+    .status {
+        font-size: 9px;
+    }
+
+
+    .chat-box {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+
+    .bubble {
+        font-size: 12px;
+
+        padding: 8px 10px;
+    }
+
+
+    textarea {
+        font-size: 12px;
+    }
+
+
+    .disclaimer {
+        display: none;
+    }
+
+}
+
+
+/* =========================================================
+   LANDSCAPE PHONES
+========================================================= */
+
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .chat-header {
+        min-height: 52px;
+
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+
+    .chat-box {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+
+    .message {
+        margin-bottom: 12px;
+    }
+
+
+    .input-area {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+
+    .disclaimer {
+        display: none;
+    }
+
 }
